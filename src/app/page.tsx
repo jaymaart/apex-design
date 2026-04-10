@@ -1,34 +1,106 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CalendlyModal from "@/components/CalendlyModal";
 
-export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+/**
+ * A controlled Reveal component that uses IntersectionObserver
+ * to manage visibility via React state, preventing class erasures
+ * on component re-renders.
+ */
+function Reveal({
+  children,
+  className = "",
+  style = {},
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Scroll reveal logic
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("visible");
-            observer.unobserve(e.target);
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
       },
       { threshold: 0.15 }
     );
 
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
 
     return () => observer.disconnect();
   }, []);
 
+  return (
+    <div
+      ref={ref}
+      className={`${className} reveal ${isVisible ? "visible" : ""}`}
+      style={style}
+    >
+      {children}
+    </div>
+  );
+}
+
+export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const CALENDLY_URL = "https://calendly.com/jasonmartin546/new-meeting";
+
+  // JSON-LD Structured Data for Global SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Apex Frame Designs — Global AI & Business Automation",
+    "description": "Premium AI receptionists, lead management systems, and high-converting websites for businesses worldwide.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Apex Frame Designs",
+      "url": "https://apexframedesigns.com"
+    },
+    "areaServed": "Global",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Automation Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Receptionist & Call Automation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "High-Converting Website Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Lead Management & CRM Automation"
+          }
+        }
+      ]
+    }
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* NAV */}
       <nav>
         <a className="nav-logo" href="#">
@@ -124,7 +196,7 @@ export default function Home() {
       {/* SERVICES */}
       <section id="services">
         <div className="container">
-          <div className="reveal">
+          <Reveal>
             <div className="section-label">Services</div>
             <div className="section-title">
               Everything you need to capture
@@ -135,9 +207,9 @@ export default function Home() {
               We build integrated systems, not just pretty pages. Every piece is
               designed to work together and grow your business on autopilot.
             </p>
-          </div>
+          </Reveal>
           <div className="services-grid">
-            <div className="service-card reveal">
+            <Reveal className="service-card">
               <div className="service-icon web">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -167,8 +239,8 @@ export default function Home() {
                 <span className="feature-tag">Booking Forms</span>
                 <span className="feature-tag">Hosting</span>
               </div>
-            </div>
-            <div className="service-card reveal">
+            </Reveal>
+            <Reveal className="service-card">
               <div className="service-icon ai">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -201,8 +273,8 @@ export default function Home() {
                 <span className="feature-tag">Lead Qualifying</span>
                 <span className="feature-tag">Custom Scripts</span>
               </div>
-            </div>
-            <div className="service-card reveal">
+            </Reveal>
+            <Reveal className="service-card">
               <div className="service-icon lead">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -229,8 +301,8 @@ export default function Home() {
                 <span className="feature-tag">Pipeline Tracking</span>
                 <span className="feature-tag">Review Requests</span>
               </div>
-            </div>
-            <div className="service-card reveal">
+            </Reveal>
+            <Reveal className="service-card">
               <div className="service-icon growth">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +330,7 @@ export default function Home() {
                 <span className="feature-tag">Tech Support</span>
                 <span className="feature-tag">Strategy</span>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -266,15 +338,15 @@ export default function Home() {
       {/* HOW IT WORKS */}
       <section className="how-section" id="how">
         <div className="container">
-          <div className="reveal" style={{ textAlign: "center" }}>
+          <Reveal style={{ textAlign: "center" }}>
             <div className="section-label">How It Works</div>
             <div className="section-title">From first call to fully automated</div>
             <p className="section-sub" style={{ margin: "0 auto" }}>
               A simple process to get your business running on autopilot.
             </p>
-          </div>
+          </Reveal>
           <div className="steps">
-            <div className="step reveal">
+            <Reveal className="step">
               <div className="step-number">01</div>
               <h3>Free Strategy Call</h3>
               <p>
@@ -282,8 +354,8 @@ export default function Home() {
                 map out what to build. No pressure, just a clear plan.
               </p>
               <div className="step-connector"></div>
-            </div>
-            <div className="step reveal">
+            </Reveal>
+            <Reveal className="step">
               <div className="step-number">02</div>
               <h3>Build & Launch</h3>
               <p>
@@ -291,15 +363,15 @@ export default function Home() {
                 automations together. Most projects go live in 1-2 weeks.
               </p>
               <div className="step-connector"></div>
-            </div>
-            <div className="step reveal">
+            </Reveal>
+            <Reveal className="step">
               <div className="step-number">03</div>
               <h3>Grow on Autopilot</h3>
               <p>
                 Your systems capture leads, follow up, and book appointments
                 24/7. We monitor, optimize, and support you long-term.
               </p>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -307,20 +379,20 @@ export default function Home() {
       {/* ABOUT */}
       <section id="about">
         <div className="container">
-          <div className="reveal">
+          <Reveal>
             <div className="section-label">About</div>
             <div className="section-title">The person behind the systems</div>
-          </div>
+          </Reveal>
           <div className="about-grid">
-            <div className="about-photo reveal">
+            <Reveal className="about-photo">
               <img
                 src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_600/u_https://assets.cdn.filesafe.space/BTeEZpufC88pnSZUzj3Y/media/69a6282d618c8d4b7460a47c.jpg"
                 alt="Stevie Gudeman"
                 loading="lazy"
               />
               <div className="overlay"></div>
-            </div>
-            <div className="about-text reveal">
+            </Reveal>
+            <Reveal className="about-text">
               <h3>Stevie Gudeman</h3>
               <div className="role">Founder & Automation Specialist</div>
               <p>
@@ -356,7 +428,7 @@ export default function Home() {
                   <path d="m12 5 7 7-7 7" />
                 </svg>
               </a>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -364,10 +436,10 @@ export default function Home() {
       {/* FAQ */}
       <section id="faq">
         <div className="container">
-          <div className="reveal" style={{ textAlign: "center" }}>
+          <Reveal style={{ textAlign: "center" }}>
             <div className="section-label">FAQ</div>
             <div className="section-title">Common questions</div>
-          </div>
+          </Reveal>
           <div className="faq-list">
             <FaqItem question="How much does it cost?">
               <p>
@@ -398,7 +470,7 @@ export default function Home() {
 
       {/* CTA */}
       <section className="cta-section">
-        <div className="cta-content reveal">
+        <Reveal className="cta-content">
           <h2>Ready to stop missing leads?</h2>
           <p>
             Book a free strategy call and we'll map out exactly how to automate
@@ -421,7 +493,7 @@ export default function Home() {
               <path d="m12 5 7 7-7 7" />
             </svg>
           </a>
-        </div>
+        </Reveal>
       </section>
 
       {/* FOOTER */}
@@ -491,7 +563,7 @@ function FaqItem({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className={`faq-item reveal ${isOpen ? "open" : ""}`}>
+    <Reveal className={`faq-item ${isOpen ? "open" : ""}`}>
       <button className="faq-q" onClick={() => setIsOpen(!isOpen)}>
         {question}
         <span className="icon">
@@ -512,6 +584,6 @@ function FaqItem({
         </span>
       </button>
       <div className="faq-a">{children}</div>
-    </div>
+    </Reveal>
   );
 }

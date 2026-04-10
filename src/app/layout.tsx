@@ -15,8 +15,66 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Apex Frame Designs — AI Systems & High-Converting Websites",
-  description: "We build AI receptionists, automated follow-up systems, and conversion-focused websites that capture leads and book customers 24/7.",
+  metadataBase: new URL("https://apexframedesigns.com"),
+  title: {
+    default: "Apex Frame Designs — Global AI Systems & Business Automation",
+    template: "%s | Apex Frame Designs",
+  },
+  description: "Capture leads and book customers 24/7. We build premium AI receptionists, automated follow-up systems, and high-converting business websites globally.",
+  keywords: [
+    "AI Automation",
+    "AI Receptionist",
+    "Sales Automation",
+    "High-converting Websites",
+    "Lead Management",
+    "Business Process Automation",
+    "Automated Follow-ups",
+    "Apex Frame Designs",
+  ],
+  authors: [{ name: "Stevie Gudeman" }, { name: "Apex Frame Designs" }],
+  creator: "Apex Frame Designs",
+  publisher: "Apex Frame Designs",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://apexframedesigns.com",
+    siteName: "Apex Frame Designs",
+    title: "Apex Frame Designs — Global AI Systems & Business Automation",
+    description: "Premium AI receptionists and automated lead systems for businesses worldwide. Built to convert 24/7.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Apex Frame Designs — Global AI Systems & Business Automation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apex Frame Designs — Global AI Systems & Business Automation",
+    description: "Premium AI receptionists and automated lead systems for businesses worldwide.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
