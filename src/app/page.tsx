@@ -386,7 +386,7 @@ export default function Home() {
           <div className="about-grid">
             <Reveal className="about-photo">
               <img
-                src="https:///stevie-photo.jpg"
+                src="/stevie-photo.jpg"
                 alt="Stevie Gudeman"
                 loading="lazy"
               />
@@ -412,7 +412,7 @@ export default function Home() {
                 href={CALENDLY_URL}
                 style={{ marginTop: "16px" }}
               >
-                Let's Talk
+                Let&apos;s Talk
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -459,7 +459,7 @@ export default function Home() {
             </FaqItem>
             <FaqItem question="Do I need to be tech-savvy?">
               <p>
-                Not at all. We handle setup, automation, and integrations. You'll
+                Not at all. We handle setup, automation, and integrations. You&apos;ll
                 get a simple system that works in the background so you can focus
                 on running your business.
               </p>
@@ -473,7 +473,7 @@ export default function Home() {
         <Reveal className="cta-content">
           <h2>Ready to stop missing leads?</h2>
           <p>
-            Book a free strategy call and we'll map out exactly how to automate
+            Book a free strategy call and we&apos;ll map out exactly how to automate
             your business and start closing more customers.
           </p>
           <a className="btn btn-primary" href={CALENDLY_URL}>
