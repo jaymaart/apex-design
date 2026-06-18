@@ -386,7 +386,7 @@ export default function Home() {
           <div className="about-grid">
             <Reveal className="about-photo">
               <img
-                src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_600/u_https://assets.cdn.filesafe.space/BTeEZpufC88pnSZUzj3Y/media/69a6282d618c8d4b7460a47c.jpg"
+                src="https:///stevie-photo.jpg"
                 alt="Stevie Gudeman"
                 loading="lazy"
               />
