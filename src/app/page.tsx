@@ -52,7 +52,7 @@ function Reveal({
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const CALENDLY_URL = "https://calendly.com/jasonmartin546/new-meeting";
+  const CALENDLY_URL = "https://calendly.com/stevie-gudeman";
 
   // JSON-LD Structured Data for Global SEO
   const structuredData = {
